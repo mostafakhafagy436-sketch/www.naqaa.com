@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c2a2e">
+<title>نقاء | ابنِ إرادتك يومًا بعد يوم</title>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c2a2e;--bg2:#123a3f;--ink:#eaf2f0;--mute:#9db8b5;--gold:#e3b65b;--line:#24545a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Tajawal",Tahoma,sans-serif;font-size:17px;line-height:1.7;padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+main{max-width:460px;margin:0 auto;padding:18px}
+h1,h2,.num{font-family:"Reem Kufi","Tajawal",Tahoma,sans-serif}
+h1{color:var(--gold);font-size:26px}h2{font-size:20px;margin-bottom:8px}
+button{font-family:inherit;font-size:17px;cursor:pointer;border:0;border-radius:12px;padding:14px;width:100%;color:var(--ink);background:var(--bg2)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.gold{background:var(--gold);color:#1a2a20;font-weight:700}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--mute);font-size:15px}
+.card{background:var(--bg2);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.mute{color:var(--mute);font-size:15px}
+.ringwrap{position:relative;width:230px;height:230px;margin:6px auto}
+.ringwrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ringwrap circle{fill:none;stroke-width:12;stroke-linecap:round}
+.track{stroke:var(--line)}.prog{stroke:var(--gold);transition:stroke-dashoffset .9s}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.num{font-size:54px;line-height:1;font-weight:700}
+.msg{border-inline-start:4px solid var(--gold);background:var(--bg2);border-radius:14px;padding:14px 16px;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.chip{background:var(--bg);border:1px solid var(--line);font-size:15px;padding:12px 8px}
+.chip.on{border-color:var(--gold);color:var(--gold)}
+textarea,input{width:100%;font-family:inherit;font-size:17px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+nav{position:fixed;bottom:0;inset-inline:0;background:var(--bg2);border-top:1px solid var(--line);display:flex;padding:6px 6px calc(6px + env(safe-area-inset-bottom));z-index:5}
+nav button{background:none;font-size:14px;padding:10px 2px;border-radius:10px;color:var(--mute)}
+nav button.on{color:var(--gold);background:var(--bg)}
+.sec{display:none}.sec.on{display:block}
+.lock{opacity:.6}
+.bar{display:flex;align-items:flex-end;gap:6px;height:110px;margin:10px 0 4px}
+.bar div{flex:1;background:var(--gold);border-radius:6px 6px 0 0;min-height:4px}
+.lbl{display:flex;gap:6px;font-size:12px;color:var(--mute)}.lbl span{flex:1;text-align:center}
+.ov{position:fixed;inset:0;background:var(--bg);display:none;overflow:auto;padding:calc(env(safe-area-inset-top) + 18px) 18px 30px;z-index:10}
+.ov.show{display:block}.ov .in{max-width:460px;margin:0 auto}
+.breath{width:130px;height:130px;border-radius:50%;background:var(--gold);margin:20px auto;animation:b 8s ease-in-out infinite}
+@keyframes b{0%,100%{transform:scale(.6);opacity:.6}50%{transform:scale(1);opacity:1}}
+li{margin:0 22px 8px 0}
+body{background:radial-gradient(ellipse at 50% 0,#17484d 0,var(--bg) 55%) fixed}
+.ringwrap::before{content:"";position:absolute;inset:14px;border-radius:50%;background:radial-gradient(circle,rgba(227,182,91,.16),transparent 70%)}
+.xp{height:10px;background:var(--line);border-radius:5px;margin-top:6px;overflow:hidden}.xp div{height:100%;background:var(--gold);border-radius:5px;transition:width .6s}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.q{padding:10px 0;border-bottom:1px solid var(--line)}.q:last-child{border:0}
+.q button{width:auto;padding:8px 14px;font-size:14px;background:var(--gold);color:#1a2a20;font-weight:700}
+.done{color:var(--gold)}
+input[type=range]{padding:0;accent-color:var(--gold);margin:4px 0 12px}
+.card{border:1px solid rgba(255,255,255,.06);border-radius:18px;box-shadow:0 10px 26px -14px rgba(0,0,0,.6)}
+.gold{box-shadow:0 10px 22px -10px rgba(227,182,91,.7)}
+button{transition:transform .12s}button:active{transform:scale(.97)}
+nav button.on{box-shadow:inset 0 3px 0 var(--gold)}
+#app{animation:inn .7s ease-out}@keyframes inn{from{opacity:0;transform:translateY(10px)}}
+#greet{font-size:15px}
+#plant{margin-top:-6px}
+.gbox{animation:wig 2.4s ease-in-out infinite;transform-origin:50% 90%;margin-bottom:4px}
+@keyframes wig{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg)}}
+.fresh{animation:pp .9s ease-out}
+.cf{position:fixed;top:-14px;width:8px;height:13px;border-radius:2px;animation:fall 2.6s linear forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(600deg)}}
+.bdg{display:flex;flex-wrap:wrap;gap:8px}.bdg span{border:1px solid var(--gold);color:var(--gold);border-radius:20px;padding:4px 12px;font-size:14px}
+.pop{width:120px;height:120px;border-radius:50%;border:6px solid var(--gold);margin:0 auto 20px;animation:pp 1.2s ease-out}
+@keyframes pp{0%{transform:scale(.2);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.pop,.xp div,#app,.gbox,.fresh{animation:none;transition:none}.cf{display:none}.breath{animation:none}.prog{transition:none}}
+
+/* Welcome screen: warm, clear, mobile-first */
+.welcome{position:relative;min-height:calc(100dvh - 36px);display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:22px 0 30px}
+.welcome:before,.welcome:after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:0}
+.welcome:before{width:280px;height:280px;top:5%;left:-130px;background:radial-gradient(circle,rgba(227,182,91,.13),transparent 70%)}
+.welcome:after{width:240px;height:240px;bottom:8%;right:-120px;background:radial-gradient(circle,rgba(69,170,155,.15),transparent 70%)}
+.welcome>*{position:relative;z-index:1}
+.w-brand{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:14px}
+.w-mark{width:42px;height:42px;border-radius:15px;background:linear-gradient(145deg,#f2cf7c,#d6a344);display:grid;place-items:center;box-shadow:0 8px 25px rgba(227,182,91,.2)}
+.w-mark svg{width:28px;height:28px}
+.w-title{font-size:40px!important;letter-spacing:.2px}
+.w-art{width:min(100%,310px);margin:8px auto 16px;position:relative}
+.w-art svg{display:block;width:100%;height:auto;filter:drop-shadow(0 16px 30px rgba(0,0,0,.18))}
+.w-kicker{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border:1px solid rgba(227,182,91,.35);background:rgba(227,182,91,.08);color:var(--gold);border-radius:99px;font-size:13px;margin-bottom:12px}
+.w-headline{font-size:27px;line-height:1.45;margin:0 auto 10px;max-width:370px}
+.w-headline em{font-style:normal;color:var(--gold)}
+.w-copy{max-width:350px;margin:0 auto 20px;font-size:16px;line-height:1.85}
+.w-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 20px}
+.w-benefit{background:rgba(18,58,63,.76);border:1px solid rgba(255,255,255,.07);border-radius:15px;padding:11px 5px;font-size:12px;color:#d6e4e1}
+.w-benefit b{display:block;font-size:20px;color:var(--gold);font-weight:700;line-height:1.3;margin-bottom:4px}
+.w-cta{font-size:19px!important;padding:16px!important;border-radius:16px!important;box-shadow:0 12px 30px -12px rgba(227,182,91,.55)!important}
+.w-safe{font-size:12px;color:var(--mute);text-align:center;margin-top:11px}
+.w-steps{display:flex;justify-content:center;gap:6px;margin:0 0 18px}
+.w-steps span{width:22px;height:4px;border-radius:10px;background:var(--line)}
+.w-steps span:first-child{width:32px;background:var(--gold)}
+@media(max-height:760px){.welcome{min-height:auto;padding:10px 0 18px}.w-art{width:220px;margin:0 auto 8px}.w-title{font-size:34px!important}.w-headline{font-size:23px}.w-copy{margin-bottom:12px}.w-benefits{margin-bottom:12px}}
+@media(prefers-reduced-motion:reduce){.w-art svg{filter:none}}
+
+
+/* Separate introductory landing page shown before the existing welcome flow */
+.intro-page{position:relative;min-height:calc(100dvh - 32px);display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:20px 0 26px;text-align:center}
+.intro-page:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 12%,rgba(227,182,91,.14),transparent 45%),radial-gradient(ellipse at 5% 85%,rgba(79,163,145,.12),transparent 40%)}
+.intro-page>*{position:relative;z-index:1}
+.intro-top{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:18px}
+.intro-logo{display:grid;place-items:center;width:38px;height:38px;border-radius:13px;background:linear-gradient(145deg,#f2cf7c,#d6a344);color:#123a3f;font-size:22px}
+.intro-brand{font-size:25px;font-weight:800;letter-spacing:.2px}
+.intro-visual{width:min(100%,330px);margin:0 auto 12px}
+.intro-visual svg{width:100%;height:auto;display:block}
+.intro-eyebrow{display:inline-flex;padding:6px 13px;border:1px solid rgba(227,182,91,.32);background:rgba(227,182,91,.08);border-radius:999px;color:var(--gold);font-size:12px;margin-bottom:12px}
+.intro-title{font-size:29px;line-height:1.5;margin:0 auto 12px;max-width:390px}
+.intro-title span{color:var(--gold)}
+.intro-description{font-size:15px;line-height:1.95;max-width:360px;margin:0 auto 18px}
+.intro-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 20px}
+.intro-point{padding:12px 5px;border:1px solid rgba(255,255,255,.08);border-radius:15px;background:rgba(18,58,63,.68);font-size:12px;line-height:1.7;color:#d9e6e3}
+.intro-point .ico{display:block;font-size:22px;margin-bottom:5px}
+.intro-start{font-size:18px!important;padding:16px!important;border-radius:16px!important}
+.intro-foot{font-size:12px;line-height:1.8;color:var(--mute);margin:11px auto 0;max-width:330px}
+@media(max-height:760px){.intro-page{min-height:auto;padding:8px 0 15px}.intro-visual{width:225px;margin-bottom:3px}.intro-title{font-size:25px}.intro-description{margin-bottom:12px}.intro-points{margin-bottom:12px}}
+
+
+#app.intro-hidden{display:none!important}
+
+</style>
+</head>
+<body>
+<main>
+<div id="onb" class="sec"></div>
+
+
+<section id="introPage" class="intro-page">
+  <div class="intro-top">
+    <span class="intro-logo" aria-hidden="true">✦</span>
+    <span class="intro-brand">نقاء</span>
+  </div>
+  <div class="intro-visual" aria-hidden="true">
+    <svg viewBox="0 0 330 225">
+      <defs>
+        <radialGradient id="introGlow"><stop offset="0" stop-color="#e3b65b" stop-opacity=".32"/><stop offset="1" stop-color="#e3b65b" stop-opacity="0"/></radialGradient>
+        <linearGradient id="introLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9bcbb0"/><stop offset="1" stop-color="#3e8976"/></linearGradient>
+      </defs>
+      <circle cx="165" cy="105" r="105" fill="url(#introGlow)"/>
+      <circle cx="165" cy="83" r="39" fill="#e3b65b" opacity=".94"/>
+      <g stroke="#e3b65b" stroke-width="2.6" stroke-linecap="round" opacity=".7">
+        <path d="M165 24V14M165 151v-10M106 83H96M234 83h-10M123 41l-7-7M207 125l7 7M207 41l7-7M123 125l-7 7"/>
+      </g>
+      <path d="M165 174V93" stroke="#a7c9a1" stroke-width="6" stroke-linecap="round"/>
+      <path d="M163 143C123 147 107 119 112 98c29 0 52 16 51 45Z" fill="url(#introLeaf)" stroke="#b5d9c0" stroke-width="1.5"/>
+      <path d="M168 121C170 88 199 77 219 85c-1 27-23 42-51 39Z" fill="#3f8d79" stroke="#8bc5a9" stroke-width="1.5"/>
+      <path d="M120 203Q165 219 210 203L198 174H132Z" fill="#b66f4d"/>
+      <path d="M127 181Q165 193 203 181L198 201Q165 214 132 201Z" fill="#d18b61"/>
+      <path d="M132 180Q165 191 198 180" fill="none" stroke="#f0bd8b" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="83" cy="127" r="3.5" fill="#e3b65b"/><circle cx="247" cy="136" r="3" fill="#8bc5a9"/>
+    </svg>
+  </div>
+  <div class="intro-eyebrow">مساحة عربية للتغيير بخطوات صغيرة</div>
+  <h1 class="intro-title">استعد وقتك وتركيزك،<br><span>وابنِ عادات تشبه الشخص الذي تريد أن تكونه.</span></h1>
+  <p class="mute intro-description">«نقاء» يساعدك على فهم محفزاتك، والتعامل مع الرغبة وقت ظهورها، ومتابعة تقدمك يومًا بعد يوم — من دون خجل أو جلد للذات.</p>
+  <div class="intro-points">
+    <div class="intro-point"><span class="ico">🧭</span>خطة شخصية<br>تناسب بدايتك</div>
+    <div class="intro-point"><span class="ico">🌿</span>خطوات عملية<br>وقت الرغبة</div>
+    <div class="intro-point"><span class="ico">📈</span>تتبّع تقدمك<br>بهدوء وخصوصية</div>
+  </div>
+  <button class="gold intro-start" id="introStart">اكتشف خطوتك الأولى ←</button>
+  <p class="intro-foot">ابدأ مجانًا • لا تحتاج إلى الكمال • كل يوم فرصة جديدة</p>
+</section>
+
+<div id="app" style="display:none">
+<section class="sec on" id="t-home">
+  <div style="display:flex;justify-content:space-between;align-items:center"><div><h1>نقاء</h1><div class="mute" id="greet"></div></div><span class="mute" id="trialtag"></span></div>
+  <div class="ringwrap"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="52"/><circle class="prog" id="prog" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+  <div class="center"><svg id="plant" viewBox="0 0 100 100" width="86" height="86" aria-hidden="true"></svg><div class="num" id="days">٠</div><span class="mute" id="unit">يوم</span></div></div>
+  <p class="mute" id="next" style="text-align:center"></p>
+  <div class="card" id="gift"></div>
+  <div class="card" id="lvl"></div>
+  <div class="msg" id="msg"></div>
+  <button class="gold" id="panic" style="font-size:20px;padding:18px;margin-bottom:10px">أحتاج مساعدة الآن</button>
+  <button id="urge" style="margin-bottom:14px">مررت برغبة وتجاوزتها</button>
+  <div class="card"><h2>كيف تشعر اليوم؟</h2><div class="grid" style="grid-template-columns:repeat(3,1fr)" id="moods"><button class="chip" data-m="strong">قوي</button><button class="chip" data-m="ok">عادي</button><button class="chip" data-m="hard">صعب</button></div></div>
+  <div class="card" id="quests"></div>
+  <div class="card" id="badges"></div>
+  <div class="card" id="fruit"></div>
+  <div class="card" id="rev" style="display:none"><h2>هل يساعدك نقاء؟</h2><div class="grid"><button class="gold" id="revy">نعم</button><button class="ghost" id="revn">ليس بعد</button></div></div>
+  <button class="ghost" id="seeplan" style="margin-bottom:8px">ما الذي يشمله الاشتراك؟</button>
+  <button class="ghost" id="share">شارك تقدمك مع شخص تثق به</button>
+  <button class="ghost" id="reset" style="margin-top:8px">بدأت من جديد</button>
+</section>
+
+<section class="sec" id="t-plan"></section>
+<section class="sec" id="t-learn"></section>
+<section class="sec" id="t-jour"><div class="card"><h2>أسبابي</h2><div id="rlist"></div><textarea id="rtxt" rows="2" placeholder="أضف سببًا شخصيًا يهمك..."></textarea><button class="gold" id="radd">أضف سببي</button></div><h2>دفتري</h2><p class="mute" style="margin-bottom:10px">اكتب ما تشاء: أفكارك، مشاعرك، ما حدث اليوم. يُحفظ على جهازك فقط.</p><textarea id="jtxt" rows="5" placeholder="اكتب بحرية..."></textarea><button class="gold" id="jsave">احفظ (+١٠ نقاط)</button><div id="jlist" style="margin-top:14px"></div></section>
+<section class="sec" id="t-prog"></section>
+<p class="mute" style="text-align:center;margin-top:16px;font-size:13px">أداة مساعدة وليست بديلًا عن المختص. إن احتجت دعمًا نفسيًا فتحدث مع طبيب أو مرشد موثوق.</p>
+</div>
+</main>
+
+<nav id="nav" style="display:none"><button data-t="home" class="on">الرئيسية</button><button data-t="plan">خطتي</button><button data-t="learn">الدروس</button><button data-t="jour">دفتري</button><button data-t="prog">تقدمي</button></nav>
+
+<div class="ov" id="help"><div class="in" style="text-align:center">
+<h2 style="color:var(--gold);font-size:28px">هذه الرغبة ستمر</h2><p class="mute">الرغبة موجة ترتفع ثم تنزل. اثبت بضع دقائق.</p>
+<div class="breath"></div><p class="mute" id="say" style="height:28px">شهيق...</p>
+<p class="num" id="timer" style="font-size:46px;color:var(--gold)">٠٠:٠٠</p><div class="card" id="hstats" style="text-align:right"></div>
+<p class="mute" id="halt" style="margin:8px 0"></p><div class="card" id="whybox" style="margin-top:12px"><p class="mute">سبب بدايتك:</p><p id="whytxt"></p></div>
+<ol style="text-align:right;margin:8px 20px 18px 0"><li>اترك مكانك الآن.</li><li>اغسل وجهك أو توضأ بماء بارد.</li><li>اخرج للمشي أو كلّم شخصًا طيبًا.</li><li>قل: اللهم اصرف عني السوء وثبّت قلبي.</li></ol>
+<textarea id="hjournal" rows="3" placeholder="اكتب ما تشعر به الآن (اختياري)"></textarea>
+<button id="closehelp">أنا بخير، رجعت</button></div></div>
+
+<div class="ov" id="cele" style="z-index:20"><div class="in" style="text-align:center;padding-top:18vh"><div id="conf" aria-hidden="true"></div><div class="pop"></div><h2 id="ct" style="color:var(--gold);font-size:34px"></h2><p id="cs" class="mute" style="margin:8px 0 24px"></p><button class="gold" id="cc">متابعة</button></div></div>
+
+<div class="ov" id="pay"><div class="in">
+<h2 style="color:var(--gold)">نباتك ينمو معك، أكمل الرحلة</h2>
+<p class="mute" style="margin-bottom:12px" id="payintro">هذا ما حققته حتى الآن:</p>
+<div class="card" id="paystats"></div>
+<div class="card"><h2>الاشتراك يشمل</h2><ul style="list-style:none"><li>جلسات «ركوب الموجة» الموجّهة عند الرغبة</li><li>مصحح الأفكار (علاج معرفي سلوكي)</li><li>خطط «إذا ثم» بكلماتك وقائمة بدائلك</li><li>حصاد المساء والتقرير الأسبوعي</li><li>الدروس اليومية وخطتك الشخصية</li><li>مشاركة التقدم مع شخص تثق به</li></ul><p class="mute" style="margin-top:8px">مبني على أساليب مثبتة علميًا: العلاج المعرفي السلوكي (CBT)، وتقبّل الرغبة ومراقبتها (urge surfing)، وخطط «إذا ثم» (implementation intentions).</p></div>
+<label for="countryPrice" class="mute" style="display:block;margin:12px 0 6px">اختَر بلدك لعرض السعر بعملتك</label><select id="countryPrice" style="width:100%;padding:12px;border-radius:12px;margin-bottom:10px;background:#123a3f;color:#eaf2f0;border:1px solid #24545a"><option value="EG">مصر</option><option value="SA">السعودية</option><option value="AE">الإمارات</option><option value="KW">الكويت</option><option value="QA">قطر</option><option value="BH">البحرين</option><option value="OM">عُمان</option><option value="JO">الأردن</option><option value="MA">المغرب</option><option value="DZ">الجزائر</option><option value="TN">تونس</option><option value="IQ">العراق</option><option value="LB">لبنان</option><option value="YE">اليمن</option><option value="SD">السودان</option><option value="PS">فلسطين</option><option value="SY">سوريا</option><option value="SO">الصومال</option><option value="MR">موريتانيا</option><option value="DJ">جيبوتي</option><option value="KM">جزر القمر</option><option value="LY">ليبيا</option><option value="OTHER">دولة أخرى</option></select><button class="gold" id="payy" style="margin-bottom:8px"></button><button id="paym" style="margin-bottom:8px;border:1px solid var(--gold)"></button>
+<p class="mute" style="text-align:center;margin:8px 0">السعر السنوي مخفّض جدًا مقارنة بالدفع الشهري. يمكنك الإلغاء في أي وقت. العدّاد وزر المساعدة يبقيان مجانيين دائمًا.</p>
+<input id="code" placeholder="لديك رمز تفعيل؟ اكتبه هنا"><button class="ghost" id="codego">تفعيل</button>
+<button class="ghost" id="paylater" style="margin-top:8px">ليس الآن</button></div></div>
+
+<script>
+(function(){
+// ===== الإعدادات: عدّلها أنت =====
+var CFG={PAY_MONTH:"",PAY_YEAR:"",PRICE_M:"٢٩ جنيهًا / شهر",PRICE_Y:"١٤٩ جنيهًا / سنة",CODES:["NAQAA-DEMO"],REVIEW_LINK:"",EMAIL:"",TRIAL_DAYS:7};
+var LOCAL_PRICES={
+ EG:{m:"٢٩ جنيهًا مصريًا / شهر",y:"١٤٩ جنيهًا مصريًا / سنة"},
+ SA:{m:"٤٫٩٩ ريال سعودي / شهر",y:"٢٥ ريالًا سعوديًا / سنة"},
+ AE:{m:"٤٫٩٩ درهم إماراتي / شهر",y:"٢٥ درهمًا إماراتيًا / سنة"},
+ KW:{m:"٠٫٤٩ دينار كويتي / شهر",y:"٢٫٥ دينار كويتي / سنة"},
+ QA:{m:"٤٫٩٩ ريال قطري / شهر",y:"٢٥ ريالًا قطريًا / سنة"},
+ BH:{m:"٠٫٤٩ دينار بحريني / شهر",y:"٢٫٥ دينار بحريني / سنة"},
+ OM:{m:"٠٫٤٩ ريال عُماني / شهر",y:"٢٫٥ ريال عُماني / سنة"},
+ JO:{m:"٠٫٧٥ دينار أردني / شهر",y:"٣٫٩ دنانير أردنية / سنة"},
+ MA:{m:"٩٫٩ دراهم مغربية / شهر",y:"٤٩ درهمًا مغربيًا / سنة"},
+ DZ:{m:"١٤٩ دينارًا جزائريًا / شهر",y:"٧٤٩ دينارًا جزائريًا / سنة"},
+ TN:{m:"١٫٤٩ دينار تونسي / شهر",y:"٧٫٥ دنانير تونسية / سنة"},
+ IQ:{m:"١٤٩٥ دينارًا عراقيًا / شهر",y:"٧٤٩٠ دينارًا عراقيًا / سنة"},
+ LB:{m:"٠٫٩٩ دولار أمريكي / شهر",y:"٤٫٩٩ دولارات أمريكية / سنة"},
+ YE:{m:"٠٫٧٥ دولار أمريكي / شهر",y:"٣٫٩ دولارات أمريكية / سنة"},
+ SD:{m:"٠٫٩٩ دولار أمريكي / شهر",y:"٤٫٩٩ دولارات أمريكية / سنة"},
+ PS:{m:"٠٫٩٩ دولار أمريكي / شهر",y:"٤٫٩٩ دولارات أمريكية / سنة"},
+ SY:{m:"٠٫٩٩ دولار أمريكي / شهر",y:"٤٫٩٩ دولارات أمريكية / سنة"},
+ SO:{m:"٠٫٩٩ دولار أمريكي / شهر",y:"٤٫٩٩ دولارات أمريكية / سنة"},
+ MR:{m:"٩٫٥ أوقية موريتانية / شهر",y:"٤٩ أوقية موريتانية / سنة"},
+ DJ:{m:"٤٩ فرنكًا جيبوتيًا / شهر",y:"٢٤٩ فرنكًا جيبوتيًا / سنة"},
+ KM:{m:"٩٩ فرنكًا قمريًا / شهر",y:"٤٩٩ فرنكًا قمريًا / سنة"},
+ LY:{m:"١٫٢٥ دينار ليبي / شهر",y:"٦٫٢٥ دنانير ليبية / سنة"},
+ OTHER:{m:"٠٫٩٩ دولار أمريكي / شهر (سعر مبدئي)",y:"٤٫٩٩ دولارات أمريكية / سنة (سعر مبدئي)"}
+};
+// ================================
+var K="naqaa_v2",S={start:null,best:0,checks:{},why:"",trig:[],hard:"",done:false,trialStart:null,premium:false,urges:[],asked:false,xp:0,badges:[],quests:{},journal:[],reasons:[],fruit:[],gifts:{},alts:[],ifthen:[],values:"",surfs:0};
+function load(){try{var r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}}
+function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function key(d){var m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(x<10?"0":"")+x}
+function today(){return key(new Date())}
+function diff(a,b){return Math.round((new Date(b+"T00:00:00")-new Date(a+"T00:00:00"))/864e5)}
+function ar(n){return String(n).replace(/\d/g,function(d){return "٠١٢٣٤٥٦٧٨٩"[d]})}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+function trialLeft(){if(!S.trialStart)return 0;return Math.max(0,CFG.TRIAL_DAYS-diff(S.trialStart,today()))}
+function pro(){return S.premium||trialLeft()>0}
+
+var TR={night:"السهر وحدي ليلًا",bored:"الملل والفراغ",stress:"التوتر والضغط",lonely:"الوحدة",phone:"استخدام الهاتف والمواقع"};
+var PL={night:"إذا جاء الليل: أضع الهاتف خارج غرفتي قبل النوم بساعة، وأنام مبكرًا.",bored:"إذا شعرت بالملل: أمشي ١٠ دقائق أو أعمل ٢٠ تمرين ضغط فورًا.",stress:"إذا ضغط عليّ التوتر: أتوضأ، وأقرأ أذكاري، وأتنفس ٥ دقائق.",lonely:"إذا شعرت بالوحدة: أتصل بصديق أو أخ، أو أجلس مع أهلي.",phone:"إذا فتحت الهاتف وحدي: أستخدم حاجب مواقع، وأبقى في الصالة لا خلف باب مغلق."};
+var HARD={morning:"الصباح",noon:"الظهر",evening:"المساء",late:"آخر الليل"};
+var LES=[
+["الرغبة موجة","الرغبة ترتفع ثم تنزل خلال ١٠ إلى ٢٠ دقيقة إن لم تغذِّها. لا تحاربها، راقبها وقل: هذه موجة وستمر.","تمرين: عند أول رغبة، اضبط مؤقتًا ١٥ دقيقة وابتعد عن الهاتف."],
+["اعرف محفزاتك","كل رغبة لها سبب قبلها: مكان أو وقت أو شعور. من يعرف محفزه يهزمه قبل أن يبدأ.","تمرين: اكتب آخر ٣ مرات جاءت فيها الرغبة وماذا كنت تشعر قبلها."],
+["خطة إذا ثم","الخطة الجاهزة تهزم الإرادة المتعبة. حدد مسبقًا: إذا حدث كذا، سأفعل كذا.","تمرين: اقرأ خطتك الشخصية في تبويب خطتي وأعد صياغتها بكلماتك."],
+["النوم والهاتف","التعب والسهر يضعفان التحكم في النفس. الهاتف في الفراش أكبر بوابة للانتكاسة.","تمرين: الليلة اشحن هاتفك خارج غرفة النوم."],
+["استبدل ولا تفرّغ","العادة لا تختفي، بل تُستبدل. اختر بديلًا يعطيك راحة: رياضة، قراءة، ذكر، أو مهارة تتعلمها.","تمرين: اختر بديلًا واحدًا وجرّبه اليوم ١٠ دقائق."],
+["الانتكاسة ليست فشلًا","العار يزيد الانتكاسة. من تعثر ثم قام أقوى ممن لم يُختبر. اسأل: ما الذي حرّكني؟ ثم عدّل خطتك.","تمرين: لا تجلد نفسك. اكتب جملة لطيفة تقولها لنفسك عند التعثر."],
+["هويتك الجديدة","أنت لا تترك شيئًا فقط، بل تصبح شخصًا أقوى وأصفى. كل يوم تصوّت لهذه الهوية.","تمرين: اكتب ٣ أشياء ستفعلها كشخص قوي الإرادة هذا الأسبوع."]];
+var M=[1,3,7,14,30,60,90,180,365];
+var MSGS=["كل يوم تصبره هو لبنة في بناء شخص أقوى.","لا تقارن بدايتك بنهاية غيرك.","الإرادة عضلة وتقوى بالاستخدام.","من ترك شيئًا لله عوّضه الله خيرًا منه.","التعثر ليس نهاية الطريق، المهم أن تقوم.","اشغل وقتك بشيء نافع.","أنت أقوى مما تظن."];
+
+// ---- Onboarding ----
+var ob=0,tmp={trig:[],hard:"",why:""};
+function onb(){
+  var o=$("onb");o.className="sec on";$("app").style.display="none";$("nav").style.display="none";
+  var h="";
+  if(ob===0){h='<div class="welcome" style="text-align:center">'
++'<div class="w-brand"><span class="w-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 26V13" stroke="#123a3f" stroke-width="2.4" stroke-linecap="round"/><path d="M16 17C6 17 5 8 5 8s10-1 11 9M16 13C16 4 26 4 27 4s-1 10-11 9" fill="none" stroke="#123a3f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h1 class="w-title">نقاء</h1></div>'
++'<div class="w-art"><svg viewBox="0 0 320 235" role="img" aria-label="نبتة صغيرة تنمو في ضوء الصباح"><defs><linearGradient id="sun" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5d58a"/><stop offset="1" stop-color="#dca84b"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#e3b65b" stop-opacity=".32"/><stop offset="1" stop-color="#e3b65b" stop-opacity="0"/></radialGradient></defs><circle cx="160" cy="110" r="105" fill="url(#glow)"/><circle cx="160" cy="92" r="45" fill="url(#sun)" opacity=".95"/><g stroke="#e3b65b" stroke-width="3" stroke-linecap="round" opacity=".7"><path d="M160 25V15M160 169v-10M93 92H82M238 92h-11M112 44l-8-8M208 140l8 8M208 44l8-8M112 140l-8 8"/></g><path d="M68 179Q160 205 252 179" fill="none" stroke="#477b71" stroke-width="3" stroke-linecap="round"/><path d="M160 177V107" fill="none" stroke="#a7c9a1" stroke-width="6" stroke-linecap="round"/><path d="M158 145C117 147 104 119 107 101c31-1 52 15 51 44Z" fill="#6fb59a" stroke="#9fd0b3" stroke-width="2"/><path d="M162 127C165 92 195 83 216 89c-1 29-24 44-54 38Z" fill="#3f8d79" stroke="#8bc5a9" stroke-width="2"/><path d="M111 207Q160 225 209 207L197 179H123Z" fill="#b66f4d"/><path d="M118 185Q160 196 202 185L197 204Q160 219 123 204Z" fill="#d18b61"/><path d="M124 184Q160 195 196 184" fill="none" stroke="#f0bd8b" stroke-width="4" stroke-linecap="round"/><circle cx="78" cy="126" r="4" fill="#e3b65b"/><circle cx="244" cy="137" r="3" fill="#8bc5a9"/><circle cx="232" cy="57" r="4" fill="#e3b65b"/></svg></div>'
++'<div class="w-kicker">✦ مساحة آمنة لبداية جديدة</div>'
++'<h2 class="w-headline">مش لازم تكون مثالي…<br><em>ابدأ بخطوة واحدة</em></h2>'
++'<p class="mute w-copy">ابنِ عادات تساعدك على استعادة وقتك وتركيزك، وافهم محفزاتك، وتقدّم يومًا بعد يوم — من غير جلد للذات لو تعثّرت.</p>'
++'<div class="w-benefits"><div class="w-benefit"><b>١</b>خطة تناسبك</div><div class="w-benefit"><b>٢</b>مساعدة وقت الرغبة</div><div class="w-benefit"><b>٣</b>تتبّع تقدّمك</div></div>'
++'<div class="w-steps" aria-hidden="true"><span></span><span></span><span></span><span></span></div>'
++'<button class="gold w-cta" id="go">ابدأ رحلتك مجانًا ←</button>'
++'<p class="w-safe">٤ أسئلة قصيرة فقط • تجربة مجانية لمدة '+ar(CFG.TRIAL_DAYS)+' أيام</p>'
++'<p class="mute" style="font-size:12px;margin-top:14px">تقدّمك لا يحتاج إلى الكمال؛ فقط إلى أن تعود للمحاولة.</p></div>';}
+  else if(ob===1){h='<h2>متى تأتيك الرغبة غالبًا؟</h2><p class="mute" style="margin-bottom:10px">اختر ما ينطبق عليك.</p><div class="grid">'+Object.keys(TR).map(function(k){return '<button class="chip'+(tmp.trig.indexOf(k)>-1?" on":"")+'" data-k="'+k+'">'+TR[k]+'</button>'}).join("")+'</div><button class="gold" id="go" style="margin-top:14px">التالي</button>';}
+  else if(ob===2){h='<h2>أصعب وقت عليك؟</h2><div class="grid" style="margin:10px 0">'+Object.keys(HARD).map(function(k){return '<button class="chip'+(tmp.hard===k?" on":"")+'" data-h="'+k+'">'+HARD[k]+'</button>'}).join("")+'</div><button class="gold" id="go">التالي</button>';}
+  else{h='<h2>لماذا تريد أن تتغير؟</h2><p class="mute" style="margin-bottom:10px">اكتب بكلماتك. سنعرضها لك في اللحظات الصعبة.</p><textarea id="why" rows="4" placeholder="مثال: أريد أن أكون قريبًا من ربي، وأن أحترم نفسي...">'+esc(tmp.why)+'</textarea><button class="gold" id="go">جهّز خطتي</button>';}
+  o.innerHTML=h;
+  var g=$("go");if(g)g.onclick=function(){
+    if(ob===1&&!tmp.trig.length)return;if(ob===2&&!tmp.hard)return;
+    if(ob===3){S.trig=tmp.trig;S.hard=tmp.hard;S.why=$("why").value.trim();S.reasons=S.why?[S.why]:[];S.done=true;S.start=today();S.trialStart=today();save();start();return}
+    ob++;onb();};
+  [].forEach.call(o.querySelectorAll("[data-k]"),function(b){b.onclick=function(){var k=b.dataset.k,i=tmp.trig.indexOf(k);if(i>-1)tmp.trig.splice(i,1);else tmp.trig.push(k);b.classList.toggle("on")}});
+  [].forEach.call(o.querySelectorAll("[data-h]"),function(b){b.onclick=function(){tmp.hard=b.dataset.h;onb()}});
+}
+
+// ---- Main ----
+function start(){$("onb").className="sec";$("app").style.display="block";$("nav").style.display="flex";render()}
+function lockedCard(t){return '<div class="card"><h2>'+t+'</h2><p class="mute" style="margin-bottom:10px">هذه الميزة ضمن الاشتراك.</p><button class="gold" data-pay="1">أكمل مع نقاء</button></div>'}
+function q(){var t=today();return S.quests[t]||(S.quests[t]={})}
+var GIFTS=[["معلومة", "تسمية ما تشعر به بكلمات، مثل «أنا متوتر الآن»، تخفف حدته عند كثير من الناس. سمِّ شعورك اليوم."], ["تحدٍّ صغير", "اشرب كوب ماء الآن، ثم امشِ ٥ دقائق دون هاتف."], ["آية وتأمل", "«أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ» (الرعد ٢٨). اذكر الله دقيقة الآن."], ["كلمة لك", "كل يوم تثبت فيه ليس رقمًا فقط، بل تدريب على أن تكون صاحب قرارك."], ["معلومة", "في دراسة شهيرة عن بناء العادات كان المتوسط ٦٦ يومًا، لكنه تراوح بين ١٨ و٢٥٤ يومًا حسب الشخص. لا تقارن نفسك بأحد."], ["تحدٍّ صغير", "اكتب ٣ أشياء تشكر الله عليها اليوم."], ["معلومة", "التنفس البطيء مع زفير أطول من الشهيق يساعد جسمك على الهدوء. جرّب: شهيق ٤ ثوانٍ، زفير ٦ ثوانٍ، ٥ مرات."], ["آية وتأمل", "«وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ» (آل عمران ١٣٩)."], ["تحدٍّ صغير", "أرسل رسالة طيبة لشخص تحبه الآن."], ["معلومة", "النوم الكافي يحسّن التركيز والتحكم في الانفعالات. حاول أن تنام اليوم قبل منتصف الليل."], ["كلمة لك", "الرغبة موجة. لا تحتاج أن تهزمها، يكفي أن تنتظر حتى تنزل."], ["تحدٍّ صغير", "رتّب مكانًا واحدًا في غرفتك ٥ دقائق. النظام الخارجي يهدّئ الداخل."], ["آية وتأمل", "«فَإِنَّ مَعَ الْعُسْرِ يُسْرًا» (الشرح ٥). بعد كل صعوبة فرج قريب."], ["معلومة", "خطط «إذا حدث كذا فسأفعل كذا» ترفع فرص الالتزام بالقرارات حسب بحوث نفسية. اكتب خطة واحدة لنفسك اليوم."], ["تحدٍّ صغير", "تمرّن ١٠ دقائق: ضغط أو جري خفيف أو مشي سريع."], ["كلمة لك", "التعثر لا يمحو ما بنيته. من قام بعد التعثر أقوى ممن لم يُختبر."], ["آية وتأمل", "«لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا» (البقرة ٢٨٦). أنت قادر على ما أنت فيه."], ["معلومة", "النشاط البدني المنتظم يرتبط بتحسن المزاج والنوم وتقليل التوتر."], ["تحدٍّ صغير", "اقرأ ١٠ صفحات من كتاب نافع أو من القرآن اليوم."], ["كلمة لك", "اختر اليوم شيئًا واحدًا ستفخر به بعد ساعة، وافعله."], ["معلومة", "إبعاد الهاتف عن السرير قبل النوم بساعة ينصح به كثير من الأخصائيين لتحسين النوم وتقليل السهر."], ["آية وتأمل", "«لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ» (الزمر ٥٣). الباب مفتوح دائمًا."], ["تحدٍّ صغير", "اتصل بصديق أو قريب واسأل عن حاله بصدق."], ["كلمة لك", "لا تنتظر الشعور بالدافع. ابدأ بخطوة صغيرة والدافع يأتي بعدها."], ["معلومة", "الوحدة والملل من أكبر محفزات العادات السيئة. وجود خطة لوقت الفراغ يحميك."], ["تحدٍّ صغير", "قبل أن تنام اكتب سطرين في دفترك عن يومك وما أنجزته."], ["آية وتأمل", "«وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا» (العنكبوت ٦٩)."], ["كلمة لك", "أنت لا تترك شيئًا فقط، أنت تبني حياة أهدأ وأصفى."], ["معلومة", "التعرض لضوء الصباح عدة دقائق يساعد على ضبط الساعة البيولوجية وتحسين النوم."], ["تحدٍّ صغير", "اقضِ ١٠ دقائق في تعلم مهارة جديدة تحبها."], ["كلمة لك", "الانتصار الحقيقي هو ما تفعله حين لا يراك أحد."], ["معلومة", "الكتابة عما تشعر به وما حدث لك تساعد كثيرين على تفريغ التوتر وفهم أنفسهم."], ["تحدٍّ صغير", "ساعد شخصًا بشيء صغير اليوم. كثيرون يشعرون بسعادة حقيقية عند العطاء."], ["آية وتأمل", "«وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا» (الطلاق ٢)."], ["كلمة لك", "نباتك اليوم أكبر مما كان بالأمس، وأنت السبب."]],fresh=0;
+function dayN(){var n=new Date();return Math.floor((n.getTime()-n.getTimezoneOffset()*6e4)/864e5)}
+function gift(){
+  var t=today(),i=dayN()%GIFTS.length,g=GIFTS[i],nx=GIFTS[(i+1)%GIFTS.length],c=$("gift");
+  if(!S.gifts[t]){
+    c.innerHTML='<div style="text-align:center"><svg class="gbox" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect x="10" y="26" width="44" height="30" rx="4" fill="#e3b65b"/><rect x="6" y="18" width="52" height="12" rx="4" fill="#f0c97a"/><rect x="29" y="18" width="6" height="38" fill="#0c2a2e" opacity=".3"/><path d="M32 18C20 2 8 12 22 18M32 18C44 2 56 12 42 18" stroke="#f0c97a" stroke-width="4" fill="none" stroke-linecap="round"/></svg><h2>هدية اليوم بانتظارك</h2><p class="mute" style="margin-bottom:10px">شيء جديد كل يوم، افتحه الآن.</p><button class="gold" id="gopen">افتح هديتك</button></div>';
+    $("gopen").onclick=function(){S.gifts[t]=1;fresh=1;addXP(5);save();render()};
+  }else{
+    c.innerHTML='<div class="'+(fresh?"fresh":"")+'"><span class="mute">هدية اليوم: '+g[0]+'</span><p style="font-size:19px;margin:6px 0 10px">'+g[1]+'</p><div class="row"><span class="mute">هدايا فتحتها: '+ar(Object.keys(S.gifts).length)+'</span><button class="ghost" id="gshare" style="width:auto;padding:8px 14px">شارك</button></div><p class="mute" style="margin-top:8px">غدًا تنتظرك: '+nx[0]+'</p></div>';fresh=0;
+    $("gshare").onclick=function(){var tx=g[1]+"\n\nمن تطبيق نقاء: "+location.href;if(navigator.share)navigator.share({text:tx}).catch(function(){});else window.open("https://wa.me/?text="+encodeURIComponent(tx))};
+  }
+}
+var sv;
+function delb(k,i){return '<button data-'+k+'="'+i+'" style="background:none;border:1px solid var(--line);color:var(--mute);font-weight:400">حذف</button>'}
+function weekly(){
+  var now=Date.now(),w=S.urges.filter(function(u){return now-u.t<6048e5}),b=[0,0,0,0,0,0],hard=0,i;
+  w.forEach(function(u){b[Math.floor(u.h/4)]++});
+  for(i=0;i<7;i++){var dt=new Date();dt.setDate(dt.getDate()-i);if(S.checks[key(dt)]==="hard")hard++}
+  var nm=["بعد منتصف الليل","الفجر والصباح الباكر","الضحى","بعد الظهر","المساء","الليل"],mx=Math.max.apply(null,b);
+  return '<p>رغبات تجاوزتها هذا الأسبوع: <b>'+ar(w.length)+'</b></p><p>أيام وصفتها بالصعبة: <b>'+ar(hard)+'</b></p>'+(mx>0?'<p>أكثر وقت جاءتك فيه الرغبة: <b>'+nm[b.indexOf(mx)]+'</b>. جهّز لهذا الوقت بديلًا مسبقًا من قائمتك.</p>':'<p class="mute">سجّل رغباتك لتظهر أنماطك هنا.</p>')+'<p class="mute" style="margin-top:6px">تذكير: التعافي ليس خطًا مستقيمًا. معاملة نفسك بلطف عند التعثر تزيد فرص العودة، وهذا ما تدعمه أبحاث الرحمة بالنفس.</p>'}
+function tools(){
+  var p=$("t-plan"),h='<h2 style="margin:18px 0 8px">أدواتك</h2>';
+  h+='<div class="card"><h2>جلسة ركوب الموجة</h2><p class="mute" style="margin-bottom:8px">٥ دقائق موجّهة عند الرغبة، مبنية على اليقظة الذهنية.</p><p id="surftxt" style="min-height:54px;margin-bottom:8px"></p><button class="gold" id="surfgo">ابدأ الجلسة</button></div>';
+  h+='<div class="card"><h2>مصحح الأفكار</h2><p class="mute" style="margin-bottom:8px">أسلوب من العلاج المعرفي السلوكي لمواجهة الأفكار المحبطة.</p><textarea id="th1" rows="2" placeholder="الفكرة المزعجة، مثل: لن أنجح أبدًا"></textarea><textarea id="th2" rows="2" placeholder="ما الدليل الذي يخالف هذه الفكرة؟"></textarea><textarea id="th3" rows="2" placeholder="فكرة أكثر توازنًا وواقعية"></textarea><button class="gold" id="thsave">احفظ في دفتري</button></div>';
+  h+='<div class="card"><h2>خطط «إذا ثم» بكلماتك</h2><div id="itl"></div><input id="ita" placeholder="إذا حدث..."><input id="itb" placeholder="فسأفعل..."><button class="gold" id="itadd">أضف الخطة</button></div>';
+  h+='<div class="card"><h2>بدائلي</h2><p class="mute" style="margin-bottom:8px">أشياء تفعلها بدل العادة. ستظهر لك في شاشة المساعدة.</p><div id="altl"></div><input id="altx" placeholder="مثل: مشي ١٠ دقائق"><button class="gold" id="altadd">أضف بديلًا</button></div>';
+  h+='<div class="card"><h2>قيمي وهويتي</h2><p class="mute" style="margin-bottom:8px">من أريد أن أكون؟ اكتب ٣ قيم تهمك.</p><textarea id="valx" rows="3">'+esc(S.values)+'</textarea><button class="gold" id="valsave">احفظ</button></div>';
+  h+='<div class="card"><h2>حصاد المساء</h2><p class="mute" style="margin-bottom:8px">٣ أشياء جيدة حدثت اليوم، مهما صغرت.</p><input id="g1" placeholder="١"><input id="g2" placeholder="٢"><input id="g3" placeholder="٣"><button class="gold" id="gsave">احفظ في دفتري</button></div>';
+  h+='<div class="card"><h2>تقريرك الأسبوعي</h2>'+weekly()+'</div>';
+  p.insertAdjacentHTML("beforeend",h);
+  var it="",al="";
+  S.ifthen.forEach(function(x,i){it+='<div class="row q"><span>إذا <b>'+esc(x.a)+'</b> فسأ<b>'+esc(x.b)+'</b></span>'+delb("di",i)+'</div>'});
+  S.alts.forEach(function(x,i){al+='<div class="row q"><span>'+esc(x)+'</span>'+delb("da",i)+'</div>'});
+  $("itl").innerHTML=it;$("altl").innerHTML=al;
+  [].forEach.call(p.querySelectorAll("[data-di]"),function(b){b.onclick=function(){S.ifthen.splice(+b.dataset.di,1);save();render()}});
+  [].forEach.call(p.querySelectorAll("[data-da]"),function(b){b.onclick=function(){S.alts.splice(+b.dataset.da,1);save();render()}});
+  $("itadd").onclick=function(){var a=$("ita").value.trim(),b=$("itb").value.trim();if(!a||!b)return;S.ifthen.push({a:a,b:b});addXP(10);save();render()};
+  $("altadd").onclick=function(){var v=$("altx").value.trim();if(!v)return;S.alts.push(v);save();render()};
+  $("valsave").onclick=function(){S.values=$("valx").value.trim();save();cele("حُفظت قيمك","ستذكّرك بمن تريد أن تكون.")};
+  $("thsave").onclick=function(){var a=$("th1").value.trim();if(!a)return;S.journal.unshift({t:Date.now(),x:"فكرتي: "+a+"\nما يخالفها: "+$("th2").value.trim()+"\nالأقرب للواقع: "+$("th3").value.trim()});addXP(10);save();cele("أحسنت","غيّرت زاوية النظر، وهذه مهارة تُبنى بالتكرار.")};
+  $("gsave").onclick=function(){var a=[$("g1").value.trim(),$("g2").value.trim(),$("g3").value.trim()].filter(Boolean);if(!a.length)return;S.journal.unshift({t:Date.now(),x:"حصاد المساء: "+a.join(" | ")});if(!q().harvest){q().harvest=1;addXP(10)}save();cele("ليلة هادئة","انتبهت لما هو جيد، وهذا يرفع المزاج مع التكرار.")};
+  $("surfgo").onclick=function(){
+    var st=["لاحظ الرغبة في جسدك: أين تشعر بها؟ الصدر؟ البطن؟","سمِّها: هذه رغبة وليست أمرًا يجب تنفيذه.","تنفس ببطء: شهيق ٤ ثوانٍ، زفير ٦ ثوانٍ.","تخيّل الرغبة موجة ترتفع ثم تنزل. لا تقاومها ولا تتبعها.","كم شدتها الآن من ١ إلى ١٠؟ لاحظ أنها تغيّرت.","ارجع إلى شيء نافع تفعله الآن."],i=0,el=$("surftxt");
+    clearInterval(sv);el.textContent=st[0];
+    sv=setInterval(function(){i++;if(i>=st.length){clearInterval(sv);el.textContent="";S.surfs=(S.surfs||0)+1;addXP(25);save();cele("أحسنت","أكملت جلسة ركوب الموجة.");return}el.textContent=st[i]},45000)};
+}
+function greet(d){var h=new Date().getHours(),g=h<12?"صباح الخير":(h<17?"طاب يومك":"مساء الخير");$("greet").textContent=g+(d>0?"، اليوم "+ar(d+1)+" من رحلتك":"، بداية جميلة")}
+function plant(d){
+  var G='<ellipse cx="50" cy="92" rx="28" ry="5" fill="#1f5a52"/>',n=d>=30?5:d>=14?4:d>=7?3:d>=3?2:d>=1?1:0,L="#7fd1a0";
+  if(!n){G+='<ellipse cx="50" cy="86" rx="8" ry="5.5" fill="#e3b65b"/>'}
+  else{var top=88-n*13;G+='<path d="M50 90 L50 '+top+'" stroke="'+L+'" stroke-width="3.2" stroke-linecap="round" fill="none"/>';
+    for(var i=0;i<n;i++){var y=84-i*13,sd=i%2?1:-1,x=50+sd*10;G+='<ellipse cx="'+x+'" cy="'+y+'" rx="10" ry="4.8" fill="'+L+'" transform="rotate('+(sd*-28)+' '+x+' '+y+')"/>'}
+    if(d>=30){for(var k=0;k<5;k++){var a=k*72*Math.PI/180;G+='<circle cx="'+(50+Math.sin(a)*7).toFixed(1)+'" cy="'+(top-6-Math.cos(a)*7).toFixed(1)+'" r="4.6" fill="#e3b65b"/>'}G+='<circle cx="50" cy="'+(top-6)+'" r="3.4" fill="#fff3d0"/>'}
+    else if(d>=14){G+='<ellipse cx="50" cy="'+(top-4)+'" rx="4" ry="5.5" fill="#e3b65b"/>'}}
+  $("plant").innerHTML=G}
+var SCI='<div class="card"><h2>ماذا يقول البحث العلمي؟</h2><ul style="list-style:none"><li>الاستخدام الذي يخرج عن السيطرة يرتبط في الدراسات بالضيق النفسي والقلق والاكتئاب والعزلة وتدني تقدير الذات.</li><li>يرتبط بانخفاض الرضا في العلاقة وفي الحياة الجنسية، وهذا ظهر في عدد من المراجعات.</li><li>التوتر والمشاعر السلبية تغذّي العادة، فتتكوّن حلقة: مشاعر سيئة، ثم هروب، ثم ندم، ثم مشاعر أسوأ. كسر الحلقة يبدأ بمعرفة المحفز.</li><li>التعارض بين قيمك وسلوكك يضاعف الشعور بالذنب والضيق عند كثيرين، وهذا سبب قوة دافع الإيمان في التعافي.</li><li>التصنيف الدولي (ICD-11) يعترف باضطراب السلوك الجنسي القهري كحالة صحية.</li></ul><p class="mute" style="margin-top:8px">أمانة علمية: معظم الدراسات ارتباطية، فلا يمكن الجزم بالسبب والنتيجة، والتعريفات تختلف بين الباحثين. وإن كانت العادة مسيطرة عليك، فالاستعانة بمختص نفسي خطوة قوة.</p></div>';
+function fr(){
+  var F=S.fruit,last=F[F.length-1],t=today(),N=[["f","التركيز"],["s","النوم"],["m","المزاج"],["e","احترام الذات"]],h="<h2>ثمارك</h2>";
+  if(F.length>1){h+='<p class="mute" style="margin-bottom:6px">مقارنة بأول تقييم لك:</p>'+N.map(function(n){var x=last[n[0]]-F[0][n[0]];return '<div class="row q"><span>'+n[1]+'</span><b class="'+(x>0?"done":"")+'">'+(x>0?"+":"")+ar(x)+'</b></div>'}).join("")}
+  if(!last||diff(last.d,t)>=7){
+    h+='<p class="mute" style="margin:6px 0">'+(last?"قيّم أسبوعك:":"هذا خط البداية. نقيّم الآن ونقارن بعد أسبوع.")+'</p>'+N.map(function(n){return '<label>'+n[1]+'<input type="range" min="1" max="5" value="3" data-fr="'+n[0]+'"></label>'}).join("")+'<button class="gold" id="frsave">احفظ التقييم (+١٥ نقطة)</button>';
+  }else h+='<p class="mute" style="margin-top:6px">التقييم القادم بعد '+ar(7-diff(last.d,t))+' أيام.</p>';
+  $("fruit").innerHTML=h;var b=$("frsave");
+  if(b)b.onclick=function(){var o={d:t};[].forEach.call($("fruit").querySelectorAll("[data-fr]"),function(i){o[i.dataset.fr]=+i.value});S.fruit.push(o);addXP(15);save();render()};
+}
+var REM=["«إِنَّ مَعَ الْعُسْرِ يُسْرًا» (الشرح ٦)","«وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا» (الطلاق ٢)","«وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا» (العنكبوت ٦٩)","الرغبة موجة، وأنت تتجاوزها كل مرة.","أنت اليوم أقوى مما كنت عليه بالأمس.","كل يوم تثبت فيه، تصوّت لنفسك الجديدة."];
+function jr(){var rh="";S.reasons.forEach(function(r,i){rh+='<div class="row q"><span>'+esc(r)+'</span><button data-rd="'+i+'" style="background:none;border:1px solid var(--line);color:var(--mute);font-weight:400">حذف</button></div>'});$("rlist").innerHTML=rh||'<p class="mute" style="margin-bottom:8px">اكتب أسبابك بكلماتك. ستظهر لك في اللحظات الصعبة.</p>';[].forEach.call($("rlist").querySelectorAll("[data-rd]"),function(b){b.onclick=function(){S.reasons.splice(+b.dataset.rd,1);save();render()}});var h="";S.journal.slice(0,10).forEach(function(e){h+='<div class="card"><p class="mute">'+new Date(e.t).toLocaleDateString("ar-EG")+'</p><p>'+esc(e.x)+'</p></div>'});$("jlist").innerHTML=h}
+$("radd").onclick=function(){var v=$("rtxt").value.trim();if(!v)return;S.reasons.push(v);$("rtxt").value="";save();render()};
+$("jsave").onclick=function(){var v=$("jtxt").value.trim();if(!v)return;S.journal.unshift({t:Date.now(),x:v});if(!q().journal){q().journal=1;addXP(10)}save();$("jtxt").value="";render()};
+function lv(){return Math.floor(S.xp/100)+1}
+function cele(t,s){$("ct").textContent=t;$("cs").textContent=s;$("cele").className="ov show";var c="",cl=["#e3b65b","#7fd1a0","#eaf2f0"];for(var i=0;i<28;i++)c+='<i class="cf" style="left:'+(Math.random()*100).toFixed(0)+'%;background:'+cl[i%3]+';animation-delay:'+(Math.random()*.8).toFixed(2)+'s"></i>';$("conf").innerHTML=c}
+function addXP(n){var o=lv();S.xp+=n;save();if(lv()>o)cele("مستوى جديد: "+ar(lv()),"استمر. أنت تبني عادة قوية.")}
+$("cc").onclick=function(){$("cele").className="ov"};
+function extra(d){
+  var x=S.xp%100;
+  $("lvl").innerHTML='<div class="row"><b>المستوى '+ar(lv())+'</b><span class="mute">'+ar(x)+' / ١٠٠ نقطة</span></div><div class="xp"><div style="width:'+x+'%"></div></div>';
+  var Q=q(),li=Math.min(d,6),pr=(li===0||pro());
+  function row(ok,txt,btn,k){return '<div class="row q"><span class="'+(ok?"done":"")+'">'+(ok?"✓ ":"○ ")+txt+'</span>'+(ok||!btn?"":'<button data-q="'+k+'">'+btn+'</button>')+'</div>'}
+  $("quests").innerHTML='<h2>مهام اليوم</h2>'+row(Q.mood,"سجّل مزاجك من الأزرار بالأعلى",0,"")+row(Q.lesson,"اقرأ درس اليوم في تبويب الدروس",pr?"قرأته":"اشترك",pr?"lesson":"pay")+row(Q.intent,"نيّة اليوم: اللهم أعنّي على نفسي","نويت","intent")+'<p class="mute" style="margin-top:6px">أنهِ الثلاثة لتحصل على ٣٠ نقطة إضافية.</p>';
+  [].forEach.call($("quests").querySelectorAll("[data-q]"),function(b){b.onclick=function(){var k=b.dataset.q;if(k==="pay"){showPay();return}Q[k]=1;addXP(k==="lesson"?15:10);save();render()}});
+  if(Q.mood&&Q.lesson&&Q.intent&&!Q.award){Q.award=1;save();addXP(30);cele("هديتك اليوم","+٣٠ نقطة. "+REM[Math.floor(Math.random()*REM.length)])}
+  var B=[["أول يوم",d>=1],["٣ أيام",d>=3],["أسبوع كامل",d>=7],["١٤ يومًا",d>=14],["شهر كامل",d>=30],["أول رغبة تجاوزتها",S.urges.length>=1],["١٠ رغبات تجاوزتها",S.urges.length>=10],["المستوى ٥",lv()>=5],["٧ هدايا",Object.keys(S.gifts).length>=7]];
+  B.forEach(function(b){if(b[1]&&S.badges.indexOf(b[0])<0){S.badges.push(b[0]);save();cele("شارة جديدة",b[0])}});
+  $("badges").innerHTML='<h2>شاراتك</h2>'+(S.badges.length?'<div class="bdg">'+S.badges.map(function(b){return '<span>'+b+'</span>'}).join("")+'</div>':'<p class="mute">أول شارة تحصل عليها بعد يومك الأول.</p>');
+}
+function render(){
+  var t=today(),d=Math.max(0,diff(S.start,t));if(d>S.best){S.best=d;save()}
+  $("days").textContent=ar(d);$("unit").textContent=d===0?"أول يوم":(d<=10?"أيام":"يومًا");
+  var nx=M.find(function(m){return m>d})||365,pv=0;M.forEach(function(m){if(m<=d)pv=m});
+  $("prog").style.strokeDashoffset=326.7*(1-Math.min(1,(d-pv)/(nx-pv)));
+  $("next").textContent="الهدف القادم: "+ar(nx)+" يومًا (باقي "+ar(Math.max(0,nx-d))+")";
+  $("msg").textContent=MSGS[(new Date().getDate()+d)%MSGS.length];
+  $("trialtag").textContent=S.premium?"مشترك":(trialLeft()>0?"تجربة: باقي "+ar(trialLeft())+" أيام":"");
+  [].forEach.call(document.querySelectorAll("#moods button"),function(b){b.className="chip"+(S.checks[t]===b.dataset.m?" on":"")});
+  $("rev").style.display=(!S.asked&&d>=7&&pro())?"block":"none";
+  // plan
+  var p=$("t-plan");
+  if(pro()){p.innerHTML='<h2>خطتك الشخصية</h2>'+(S.why?'<div class="msg"><span class="mute">سبب بدايتك</span><br>'+esc(S.why)+'</div>':'')+
+   S.trig.map(function(k){return '<div class="card">'+PL[k]+'</div>'}).join("")+
+   '<div class="card">وقتك الأصعب هو <b>'+HARD[S.hard]+'</b>. خطط له نشاطًا مسبقًا ولا تبقَ وحدك فيه.</div><div class="card">كل يوم: صلاتك في وقتها، ذكر الصباح والمساء، وحركة جسدية ولو ١٥ دقيقة.</div>';}
+  else p.innerHTML=lockedCard("خطتك الشخصية");
+  // lessons
+  var l=$("t-learn"),h=SCI+'<h2>دروس قصيرة</h2><p class="mute" style="margin-bottom:10px">درس واحد كل يوم، دقيقتان فقط.</p>';
+  LES.forEach(function(x,i){var open=(i===0||pro())&&(d+1>=i+1);
+    h+='<div class="card'+(open?"":" lock")+'"><h2>'+ar(i+1)+'. '+x[0]+'</h2>'+(open?'<p>'+x[1]+'</p><p class="mute" style="margin-top:6px">'+x[2]+'</p>':'<p class="mute">'+(i===0||pro()?"يفتح في اليوم "+ar(i+1):"ضمن الاشتراك")+'</p>')+'</div>'});
+  l.innerHTML=h+(pro()?"":'<button class="gold" data-pay="1">أكمل مع نقاء</button>');
+  // progress
+  var g=$("t-prog");
+  if(pro()){var b=[0,0,0,0,0,0];S.urges.forEach(function(u){b[Math.floor(u.h/4)]++});var mx=Math.max.apply(null,b.concat(1));
+   var names=["بعد منتصف الليل","الفجر والصباح","الضحى","العصر","المساء","الليل"];
+   g.innerHTML='<h2>تقدمك</h2><div class="card"><p>رغبات تجاوزتها: <b>'+ar(S.urges.length)+'</b></p><p>أيام المتابعة: <b>'+ar(Object.keys(S.checks).length)+'</b></p><p>أطول فترة: <b>'+ar(S.best)+'</b> يومًا</p></div><div class="card"><h2>أوقات الرغبة</h2><div class="bar">'+b.map(function(v){return '<div style="height:'+Math.round(v/mx*100)+'%"></div>'}).join("")+'</div><div class="lbl">'+names.map(function(n){return '<span>'+n.split(" ")[0]+'</span>'}).join("")+'</div><p class="mute" style="margin-top:8px">سجّل كل رغبة تتجاوزها من الصفحة الرئيسية لتظهر أنماطك.</p></div>';}
+  else g.innerHTML=lockedCard("تقرير تقدمك");
+  extra(d);jr();fr();plant(d);greet(d);gift();if(pro())tools();[].forEach.call(document.querySelectorAll("[data-pay]"),function(x){x.onclick=showPay});
+}
+function showPay(){
+  $("paystats").innerHTML='<p>أيام الصفاء: <b>'+ar(Math.max(0,diff(S.start,today())))+'</b></p><p>رغبات تجاوزتها: <b>'+ar(S.urges.length)+'</b></p>';
+  updateLocalPrice();$("payintro").textContent=pro()&&!S.premium?"تجربتك مجانية الآن. هذا ما حققته حتى الآن:":"هذا ما حققته حتى الآن:";$("pay").className="ov show"}
+function updateLocalPrice(){var sel=$("countryPrice");if(!sel)return;var p=LOCAL_PRICES[sel.value]||LOCAL_PRICES.OTHER;$("payy").textContent="الخطة السنوية (أوفر): "+p.y;$("paym").textContent="الخطة الشهرية: "+p.m}
+
+
+// ---- Events ----
+$("nav").onclick=function(e){var t=e.target.dataset&&e.target.dataset.t;if(!t)return;
+  [].forEach.call($("nav").children,function(b){b.className=b.dataset.t===t?"on":""});
+  ["home","plan","learn","jour","prog"].forEach(function(k){$("t-"+k).className="sec"+(k===t?" on":"")});render()};
+$("moods").onclick=function(e){var m=e.target.dataset&&e.target.dataset.m;if(!m)return;if(!S.checks[today()])addXP(10);S.checks[today()]=m;q().mood=1;save();render()};
+$("urge").onclick=function(){S.urges.push({t:Date.now(),h:new Date().getHours()});addXP(20);save();render();$("urge").textContent="أحسنت، سُجلت. أنت أقوى.";setTimeout(function(){$("urge").textContent="مررت برغبة وتجاوزتها"},2500)};
+$("reset").onclick=function(){if(confirm("لا بأس، سنحتفظ بأفضل رقم لك. هل تبدأ من جديد؟")){S.start=today();save();render()}};
+var says=["شهيق...","احبس نفسك...","زفير..."],si=0,tm;
+var tm2,hs=0;
+function fmt(n){var m=Math.floor(n/60),x=n%60;return ar((m<10?"0":"")+m)+":"+ar((x<10?"0":"")+x)}
+function avgMin(){var a=S.urges.filter(function(u){return u.s}).map(function(u){return u.s});if(!a.length)return 0;return Math.max(1,Math.round(a.reduce(function(x,y){return x+y},0)/a.length/60))}
+$("panic").onclick=function(){
+  hs=Date.now();var n=S.urges.length,am=avgMin(),d=Math.max(0,diff(S.start,today()));
+  $("hstats").innerHTML='<p>أيام صفائك: <b>'+ar(d)+'</b> وأفضل رقم: <b>'+ar(S.best)+'</b></p><p>رغبات تجاوزتها من قبل: <b>'+ar(n)+'</b></p>'+(am?'<p>متوسط مدة الرغبة عندك: <b>'+ar(am)+' دقيقة</b> فقط</p>':'<p class="mute">هذا أول اختبار لك، وأنت قادر عليه.</p>')+'<p class="mute" style="margin-top:6px">كل رغبة تتجاوزها دون استسلام تُضعف ارتباط المحفز بالعادة.</p>';
+  $("halt").textContent=S.alts.length?"جرّب الآن: "+S.alts[Math.floor(Math.random()*S.alts.length)]:"";var R=S.reasons.length?S.reasons:(S.why?[S.why]:[]);$("whytxt").textContent=R.length?R[Math.floor(Math.random()*R.length)]:"أنت تبني نفسك الأقوى.";$("whybox").style.display=R.length?"block":"none";
+  $("timer").textContent=fmt(0);$("help").className="ov show";si=0;$("say").textContent=says[0];
+  tm=setInterval(function(){si=(si+1)%3;$("say").textContent=says[si]},2600);
+  tm2=setInterval(function(){$("timer").textContent=fmt(Math.floor((Date.now()-hs)/1000))},1000)};
+$("closehelp").onclick=function(){
+  clearInterval(tm);clearInterval(tm2);$("help").className="ov";
+  var secs=Math.round((Date.now()-hs)/1000),jt=$("hjournal").value.trim();$("hjournal").value="";
+  if(jt){S.journal.unshift({t:Date.now(),x:jt})}
+  if(secs>=30){S.urges.push({t:Date.now(),h:new Date().getHours(),s:secs});addXP(20);save();render();
+    cele("انتصرت","تجاوزت الرغبة في "+ar(Math.max(1,Math.round(secs/60)))+" دقيقة. مجموع ما تجاوزته: "+ar(S.urges.length)+" رغبة.")}
+  else{save();render()}};
+$("share").onclick=function(){if(!pro()){showPay();return}
+  var d=Math.max(0,diff(S.start,today())),tx="أكملت "+ar(d)+" يومًا في بناء إرادتي مع نقاء. ادعُ لي بالثبات: "+location.href;
+  if(navigator.share){navigator.share({text:tx}).catch(function(){})}else{window.open("https://wa.me/?text="+encodeURIComponent(tx))}};
+$("revy").onclick=function(){S.asked=true;save();render();if(CFG.REVIEW_LINK)window.open(CFG.REVIEW_LINK);else $("share").click()};
+$("revn").onclick=function(){S.asked=true;save();render();if(CFG.EMAIL)location.href="mailto:"+CFG.EMAIL+"?subject=ملاحظات على نقاء"};
+function go(u){if(u)window.open(u);else alert("رابط الدفع غير مضبوط بعد.")}
+$("payy").onclick=function(){go(CFG.PAY_YEAR)};$("paym").onclick=function(){go(CFG.PAY_MONTH)};
+$("seeplan").onclick=showPay;
+$("codego").onclick=function(){if(CFG.CODES.indexOf($("code").value.trim())>-1){S.premium=true;save();$("pay").className="ov";render()}else alert("الرمز غير صحيح.")};
+$("paylater").onclick=function(){$("pay").className="ov"};
+$("countryPrice").onchange=updateLocalPrice;
+
+load();if(S.why&&!S.reasons.length)S.reasons=[S.why];
+if(!S.done)onb();else{start();if(!pro()&&!sessionStorage.getItem("shown")){try{sessionStorage.setItem("shown","1")}catch(e){}showPay()}}
+})();
+
+document.addEventListener("DOMContentLoaded",function(){
+  var intro=document.getElementById("introPage");
+  var app=document.getElementById("app");
+  var start=document.getElementById("introStart");
+  if(intro&&app&&start){
+    app.classList.add("intro-hidden");
+    start.addEventListener("click",function(){
+      intro.style.display="none";
+      app.classList.remove("intro-hidden");
+      if(typeof render==="function") render();
+    });
+  }
+});
+
+</script>
+</body>
+</html>
